@@ -16,3 +16,9 @@ python test.py --config [semantic_kitti_unet32_spherical_transformer.yaml filepa
 
 ```
 
+## Step 3: visualize the segmented result with open3d (optional)
+
+```
+python visulize.py
+
+```
