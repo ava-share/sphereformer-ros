@@ -22,3 +22,7 @@ python test.py --config [semantic_kitti_unet32_spherical_transformer.yaml filepa
 python visulize.py
 
 ```
+
+## An example of the lidar segmentation result
+![alt text](https://github.com/ava-share/sphereformer-ros/blob/main/segmented_sample.png)
+
