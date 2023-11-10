@@ -6,13 +6,12 @@ import numpy as np
 import open3d as o3d
 import os
 
-def convert_pcd_to_bin(np_points, bin_filename, reflectance_value=0.3):
-    # Add a column for reflectance
-    reflectance = np.full((np_points.shape[0], 1), reflectance_value)
-    np_points_with_reflectance = np.hstack((np_points, reflectance))
+def convert_pcd_to_bin(np_points, intensities, bin_filename):
+    # Concatenate intensity values with xyz points
+    np_points_with_intensity = np.hstack((np_points, intensities.reshape(-1, 1)))
 
     # Save to .bin file
-    np_points_with_reflectance.astype(np.float32).tofile(bin_filename)
+    np_points_with_intensity.astype(np.float32).tofile(bin_filename)
     print(f"Converted to {bin_filename}")
 
 def create_fake_label_file(bin_filename, label_folder):
@@ -30,25 +29,28 @@ def create_fake_label_file(bin_filename, label_folder):
     labels.tofile(label_path)
     print(f"Created fake label file {label_path}")
 
-# Convert a PointCloud2 message to a PCD format
+# Convert a PointCloud2 message to a PCD format and also extract intensity
 def pointcloud2_to_pcd(point_cloud2_msg):
     # Create an Open3D point cloud object
     pcd = o3d.geometry.PointCloud()
     
-    # Read points from the PointCloud2 message
-    gen = pc2.read_points(point_cloud2_msg, skip_nans=True, field_names=("x", "y", "z"))
-    points = np.array(list(gen))
+    # Read points and intensity from the PointCloud2 message
+    gen = pc2.read_points(point_cloud2_msg, skip_nans=True, field_names=("x", "y", "z", "intensity"))
+
+    points_and_intensity = np.array(list(gen))
+    points = points_and_intensity[:, :3]  # Extract xyz points
+    intensities = points_and_intensity[:, 3]  # Extract intensity values
 
     # Transform the points to Open3D usable format
     pcd.points = o3d.utility.Vector3dVector(points)
-    return pcd
+    return pcd, intensities
 
 def pointcloud_callback(point_cloud2_msg):
     # Get current time to create a unique filename
     timestamp = rospy.Time.now()
 
     # Convert the PointCloud2 message to PCD and then to numpy array
-    pcd = pointcloud2_to_pcd(point_cloud2_msg)
+    pcd, intensities = pointcloud2_to_pcd(point_cloud2_msg)
     np_points = np.asarray(pcd.points)
 
     # Create a unique filename for the .bin file
@@ -56,7 +58,7 @@ def pointcloud_callback(point_cloud2_msg):
     bin_filename = os.path.join(bin_folder, output_filename)
 
     # Call the conversion function to create the .bin file
-    convert_pcd_to_bin(np_points, bin_filename)
+    convert_pcd_to_bin(np_points, intensities, bin_filename)
 
     # Call the function to create a fake label file
     create_fake_label_file(bin_filename, label_folder)
