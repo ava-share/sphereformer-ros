@@ -56,11 +56,32 @@ def visualize_semantic_segmentation_with_legend(point_cloud, point_labels, label
 
 
 
+# labels = {
+#     0: "unlabeled", 1: "outlier", 10: "car", 11: "bicycle", 13: "bus",
+#     15: "motorcycle", 16: "on-rails", 18: "truck", 20: "other-vehicle",
+#     30: "person", 31: "bicyclist", 32: "motorcyclist", 40: "road", 44: "parking",
+#     48: "sidewalk", 49: "other-ground", 50: "building", 51: "fence", 52: "other-structure",
+#     60: "lane-marking", 70: "vegetation", 71: "trunk", 72: "terrain", 80: "pole", 
+#     81: "traffic-sign", 99: "other-object", 252: "moving-car", 253: "moving-bicyclist",
+#     254: "moving-person", 255: "moving-motorcyclist", 256: "moving-on-rails", 257: "moving-bus",
+#     258: "moving-truck", 259: "moving-other-vehicle"
+# }
+
+# color_map = {
+#     0: [0, 0, 0], 1: [0, 0, 255], 10: [245, 150, 100], 11: [245, 230, 100], 13: [250, 80, 100], 15: [150, 60, 30], 
+#     16: [255, 0, 0], 18: [180, 30, 80], 20: [255, 0, 0], 30: [30, 30, 255], 31: [200, 40, 255], 32: [90, 30, 150], 
+#     40: [255, 0, 255], 44: [255, 150, 255], 48: [75, 0, 75], 49: [75, 0, 175], 50: [0, 200, 255], 51: [50, 120, 255],
+#     52: [0, 150, 255], 60: [170, 255, 150], 70: [0, 175, 0], 71: [0, 60, 135], 72: [80, 240, 150], 80: [150, 240, 255],
+#     81: [0, 0, 255], 99: [255, 255, 50], 252: [245, 150, 100], 256: [255, 0, 0], 253: [200, 40, 255], 254: [30, 30, 255],
+#     255: [90, 30, 150], 257: [250, 80, 100], 258: [180, 30, 80], 259: [255, 0, 0]
+# }
+
+### 14 = 51 -> fence; 12 = 49 -> other-ground
 labels = {
     0: "unlabeled", 1: "outlier", 10: "car", 11: "bicycle", 13: "bus",
     15: "motorcycle", 16: "on-rails", 18: "truck", 20: "other-vehicle",
     30: "person", 31: "bicyclist", 32: "motorcyclist", 40: "road", 44: "parking",
-    48: "sidewalk", 49: "other-ground", 50: "building", 51: "fence", 52: "other-structure",
+    48: "sidewalk", 12: "other-ground", 50: "building", 14: "fence", 52: "other-structure",
     60: "lane-marking", 70: "vegetation", 71: "trunk", 72: "terrain", 80: "pole", 
     81: "traffic-sign", 99: "other-object", 252: "moving-car", 253: "moving-bicyclist",
     254: "moving-person", 255: "moving-motorcyclist", 256: "moving-on-rails", 257: "moving-bus",
@@ -70,7 +91,7 @@ labels = {
 color_map = {
     0: [0, 0, 0], 1: [0, 0, 255], 10: [245, 150, 100], 11: [245, 230, 100], 13: [250, 80, 100], 15: [150, 60, 30], 
     16: [255, 0, 0], 18: [180, 30, 80], 20: [255, 0, 0], 30: [30, 30, 255], 31: [200, 40, 255], 32: [90, 30, 150], 
-    40: [255, 0, 255], 44: [255, 150, 255], 48: [75, 0, 75], 49: [75, 0, 175], 50: [0, 200, 255], 51: [50, 120, 255],
+    40: [255, 0, 255], 44: [255, 150, 255], 48: [75, 0, 75], 12: [75, 0, 175], 50: [0, 200, 255], 14: [50, 120, 255],
     52: [0, 150, 255], 60: [170, 255, 150], 70: [0, 175, 0], 71: [0, 60, 135], 72: [80, 240, 150], 80: [150, 240, 255],
     81: [0, 0, 255], 99: [255, 255, 50], 252: [245, 150, 100], 256: [255, 0, 0], 253: [200, 40, 255], 254: [30, 30, 255],
     255: [90, 30, 150], 257: [250, 80, 100], 258: [180, 30, 80], 259: [255, 0, 0]
@@ -83,8 +104,11 @@ color_map = {
 # point_cloud_file = "/media/avresearch/DATA/SphereFormer/test_data/dataset/sequences/00/velodyne/1681488505942115.bin"
 # label_file = "/media/avresearch/DATA/SphereFormer/segmented/segmented0.label"
 
-point_cloud_file = "/media/avresearch/DATA/SphereFormer/test_data/dataset/sequences/00/velodyne/1681488653430824.bin"
-label_file = "/media/avresearch/DATA/SphereFormer/segmented/segmented1456.label"
+# point_cloud_file = "/media/avresearch/DATA/SphereFormer/test_data/dataset/sequences/00/velodyne/1681488653430824.bin"
+# label_file = "/media/avresearch/DATA/SphereFormer/segmented/segmented1456.label"
+
+point_cloud_file = "/media/avresearch/DATA/SphereFormer/test_output_from_ROSbag/dataset/sequences/00/velodyne/1699891948167198657.bin"
+label_file = "/media/avresearch/DATA/SphereFormer/segmented/segmented1489.label"
 points = load_bin(point_cloud_file)
 point_labels = load_label(label_file)  # Renamed for clarity
 
