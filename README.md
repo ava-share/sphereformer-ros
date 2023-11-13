@@ -25,4 +25,6 @@ python visulize.py
 
 ## An example of the lidar segmentation result
 ![alt text](https://github.com/ava-share/sphereformer-ros/blob/main/segmented_result_with_normalized_intensity.png)
+![alt text](https://github.com/ava-share/sphereformer-ros/blob/main/closer_look.png)
+
 
