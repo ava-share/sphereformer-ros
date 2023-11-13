@@ -39,11 +39,15 @@ def pointcloud2_to_pcd(point_cloud2_msg):
 
     points_and_intensity = np.array(list(gen))
     points = points_and_intensity[:, :3]  # Extract xyz points
-    intensities = points_and_intensity[:, 3]  # Extract intensity values
+    raw_intensities = points_and_intensity[:, 3]  # Extract raw intensity values
+
+    # Normalize intensities by dividing each by 256
+    normalized_intensities = raw_intensities / 256.0
 
     # Transform the points to Open3D usable format
     pcd.points = o3d.utility.Vector3dVector(points)
-    return pcd, intensities
+    return pcd, normalized_intensities
+
 
 def pointcloud_callback(point_cloud2_msg):
     # Get current time to create a unique filename
