@@ -12,7 +12,7 @@ python pcd2bin_label_ros.py
 ## Step 2: Run inference code
 
 ```
-python test.py --config [semantic_kitti_unet32_spherical_transformer.yaml filepath]
+python test.py
 
 ```
 
