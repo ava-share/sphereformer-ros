@@ -7,7 +7,10 @@ An ros implementation of SphereFormer
 roscore
 rosbag play [.bag filepath]
 python test_ros_v2.py
+rviz
 ```
+![alt text](https://github.com/ava-share/sphereformer-ros/blob/main/vis_Rviz.png)
+
 
 
 ---------------
