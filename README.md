@@ -1,5 +1,16 @@
 # sphereformer-ros
 An ros implementation of SphereFormer
+## 11/16/2023 update
+
+**real-time inference**
+```
+roscore
+rosbag play [.bag filepath]
+python test_ros_v2.py
+```
+
+
+---------------
 
 ## Step 1: construct a data organization consitant with SemanticKITTI
 
