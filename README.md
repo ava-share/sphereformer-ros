@@ -1,5 +1,20 @@
 # sphereformer-ros
 An ros implementation of SphereFormer
+
+## 01/16/2024 update Roadway detection (test_ros_v3.py)
+
+Category 8 is detected as the roadway and marked with red points. Roughly 50 meters ahead and behind the ego vehicle.
+
+```
+roscore
+rosbag play [.bag filepath]
+python test_ros_v3.py
+rviz
+```
+![alt text](https://github.com/ava-share/sphereformer-ros/blob/main/road_detection.png)
+
+
+
 ## 11/16/2023 update
 
 **real-time inference**
@@ -43,17 +58,6 @@ python visulize.py
 ### And a closer look
 ![alt text](https://github.com/ava-share/sphereformer-ros/blob/main/closer_look.png)
 
-## 01/16/2024 update Roadway detection (test_ros_v3.py)
-
-Category 8 is detected as the roadway and marked with red points. Roughly 50 meters ahead and behind the ego vehicle.
-
-```
-roscore
-rosbag play [.bag filepath]
-python test_ros_v3.py
-rviz
-```
-![alt text](https://github.com/ava-share/sphereformer-ros/blob/main/road_detection.png)
 
 
 
